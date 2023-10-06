@@ -1,0 +1,70 @@
+-- Inserting Patient Data
+INSERT INTO Patient(email, password, salt, name, address, gender)
+VALUES
+('ram123@gmail.com','admin123', '', 'Ram', 'Tamil Nadu', 'male'),
+('sham234@gmail.com','admin123', '', 'Sham', 'Karnataka', 'male'),
+('rakesh@gmail.com','admin123', '', 'Rakesh', 'Gujarat', 'male');
+
+-- Inserting Medical History Data
+INSERT INTO MedicalHistory(date, conditions, surgeries, medication)
+VALUES
+('2018-03-23','Pain in abdomen','Heart Surgery','Crocin'),
+('2019-03-23','Frequent Indigestion','none','none'),
+('2020-04-23','Body Pain','none','Iodex');
+
+-- Inserting Doctor Data
+INSERT INTO Doctor(email, gender, password, salt, name)
+VALUES
+('sandip.doctor@gmail.com', 'male', 'admin123', '', 'Sandip Kaushik'),
+('gagan.doctor@gmail.com', 'male', 'admin123', '', 'Gagan Singh');
+
+-- Inserting Appointment Data
+INSERT INTO Appointment(doctor_email, date, starttime, endtime, status)
+VALUES
+('sandip.doctor@gmail.com', '2021-03-23', '09:00', '10:00', 'Done'),
+('gagan.doctor@gmail.com', '2022-03-23', '10:00', '11:00', 'Done'),
+('gagan.doctor@gmail.com', '2023-03-23', '14:00', '15:00', 'Done');
+
+-- Inserting Patient-Appointment Data
+INSERT INTO PatientsAttendAppointments(patient, appt, concerns, symptoms)
+VALUES
+('ram123@gmail.com', 1, 'none', 'itchy throat'),
+('sham234@gmail.com', 2, 'infection', 'fever'),
+('rakesh@gmail.com', 3, 'nausea', 'fever');
+
+-- Inserting Schedule Data
+INSERT INTO Schedule(starttime, endtime, breaktime, day)
+VALUES
+('09:00','17:00','12:00','Tuesday'),
+('09:00','17:00','12:00','Friday'),
+('09:00','17:00','12:00','Saturday'),
+('09:00','17:00','12:00','Sunday'),
+('09:00','17:00','12:00','Wednesday'),
+('09:00','17:00','12:00','Friday');
+
+-- Associating Patients with their Medical Histories
+INSERT INTO PatientMedicalHistory(patient_email, history)
+VALUES
+('ram123@gmail.com', 1),
+('sham234@gmail.com', 2),
+('rakesh@gmail.com', 3);
+
+-- Inserting Diagnoses Data
+INSERT INTO Diagnoses(appt, doctor_email, diagnosis, prescription)
+VALUES
+(1, 'sandip.doctor@gmail.com', 'Bloating', 'Ibuprofen as needed'),
+(2, 'gagan.doctor@gmail.com', 'Muscle soreness', 'Stretch morning/night'),
+(3, 'gagan.doctor@gmail.com', 'Vitamin Deficiency', 'Good Diet');
+
+-- Associating Doctors with their Schedules
+INSERT INTO DocsHaveSchedules(sched, doctor_email)
+VALUES
+(1, 'sandip.doctor@gmail.com'),
+(2, 'gagan.doctor@gmail.com');
+
+-- Doctors viewing patients' histories
+INSERT INTO DoctorViewsHistory(history, doctor_email)
+VALUES
+(1, 'sandip.doctor@gmail.com'),
+(2, 'gagan.doctor@gmail.com'),
+(3, 'gagan.doctor@gmail.com');
