@@ -19,14 +19,14 @@ VALUES
 ('gagan.doctor@gmail.com', 'male', 'admin123', '', 'Gagan Singh');
 
 -- Inserting Appointment Data
-INSERT INTO Appointment(doctor_email, date, starttime, endtime, status)
+INSERT INTO Appointment(doctorEmail, date, starttime, endtime, status)
 VALUES
-('sandip.doctor@gmail.com', '2021-03-23', '09:00', '10:00', 'Done'),
-('gagan.doctor@gmail.com', '2022-03-23', '10:00', '11:00', 'Done'),
-('gagan.doctor@gmail.com', '2023-03-23', '14:00', '15:00', 'Done');
+('sandip.doctor@gmail.com', '2021-03-23', '2021-03-23 09:00:00', '2021-03-23 10:00:00', 'Done'),
+('gagan.doctor@gmail.com', '2022-03-23', '2022-03-23 10:00:00', '2022-03-23 11:00:00', 'Done'),
+('gagan.doctor@gmail.com', '2023-03-23', '2023-03-23 14:00:00', '2023-03-23 15:00:00', 'Done');
 
 -- Inserting Patient-Appointment Data
-INSERT INTO PatientsAttendAppointments(patient, appt, concerns, symptoms)
+INSERT INTO PatientsAttendAppointments(patient, appointmentId, concerns, symptoms)
 VALUES
 ('ram123@gmail.com', 1, 'none', 'itchy throat'),
 ('sham234@gmail.com', 2, 'infection', 'fever'),
@@ -35,36 +35,36 @@ VALUES
 -- Inserting Schedule Data
 INSERT INTO Schedule(starttime, endtime, breaktime, day)
 VALUES
-('09:00','17:00','12:00','Tuesday'),
-('09:00','17:00','12:00','Friday'),
-('09:00','17:00','12:00','Saturday'),
-('09:00','17:00','12:00','Sunday'),
-('09:00','17:00','12:00','Wednesday'),
-('09:00','17:00','12:00','Friday');
+('2021-03-23 09:00:00','2021-03-23 17:00:00','2021-03-23 12:00:00','Tuesday'),
+('2021-03-23 09:00:00','2021-03-23 17:00:00','2021-03-23 12:00:00','Friday'),
+('2021-03-23 09:00:00','2021-03-23 17:00:00','2021-03-23 12:00:00','Saturday'),
+('2021-03-23 09:00:00','2021-03-23 17:00:00','2021-03-23 12:00:00','Sunday'),
+('2021-03-23 09:00:00','2021-03-23 17:00:00','2021-03-23 12:00:00','Wednesday'),
+('2021-03-23 09:00:00','2021-03-23 17:00:00','2021-03-23 12:00:00','Friday');
 
 -- Associating Patients with their Medical Histories
-INSERT INTO PatientMedicalHistory(patient_email, history)
+INSERT INTO PatientMedicalHistory(patientEmail, historyId)
 VALUES
-('ram123@gmail.com', 1),
-('sham234@gmail.com', 2),
-('rakesh@gmail.com', 3);
+('ram123@gmail.com', 4),
+('sham234@gmail.com', 5),
+('rakesh@gmail.com', 6);
 
 -- Inserting Diagnoses Data
-INSERT INTO Diagnoses(appt, doctor_email, diagnosis, prescription)
+INSERT INTO Diagnoses(appointmentId, doctorEmail, diagnosis, prescription)
 VALUES
 (1, 'sandip.doctor@gmail.com', 'Bloating', 'Ibuprofen as needed'),
 (2, 'gagan.doctor@gmail.com', 'Muscle soreness', 'Stretch morning/night'),
 (3, 'gagan.doctor@gmail.com', 'Vitamin Deficiency', 'Good Diet');
 
 -- Associating Doctors with their Schedules
-INSERT INTO DocsHaveSchedules(sched, doctor_email)
+INSERT INTO DocsHaveSchedules(scheduleId, doctorEmail)
 VALUES
 (1, 'sandip.doctor@gmail.com'),
 (2, 'gagan.doctor@gmail.com');
 
 -- Doctors viewing patients' histories
-INSERT INTO DoctorViewsHistory(history, doctor_email)
+INSERT INTO DoctorViewsHistory(historyId, doctorEmail)
 VALUES
-(1, 'sandip.doctor@gmail.com'),
-(2, 'gagan.doctor@gmail.com'),
-(3, 'gagan.doctor@gmail.com');
+(4, 'sandip.doctor@gmail.com'),
+(5, 'gagan.doctor@gmail.com'),
+(6, 'gagan.doctor@gmail.com');
