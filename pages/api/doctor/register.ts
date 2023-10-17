@@ -29,8 +29,7 @@ export default async function register(req: NextApiRequest, res: NextApiResponse
     }
 
     // Hash the password
-    const salt = bcrypt.genSaltSync(10);
-    const hashedPassword = bcrypt.hashSync(password, salt);
+    const hashedPassword = bcrypt.hashSync(password, 10);
 
     // Store doctor data in the database
     const doctor = await prisma.doctor.create({
@@ -46,7 +45,6 @@ export default async function register(req: NextApiRequest, res: NextApiResponse
       doctor: {
         email: doctor.email,
         name: doctor.name,
-        // add other non-sensitive fields if required
       },
     });
   } catch (error) {

@@ -1,9 +1,9 @@
 -- Inserting Patient Data
-INSERT INTO Patient(email, password, salt, name, address, gender)
+INSERT INTO Patient(email, password, name, address, gender)
 VALUES
-('ram123@gmail.com','admin123', '', 'Ram', 'Tamil Nadu', 'male'),
-('sham234@gmail.com','admin123', '', 'Sham', 'Karnataka', 'male'),
-('rakesh@gmail.com','admin123', '', 'Rakesh', 'Gujarat', 'male');
+('ram123@gmail.com','admin123', 'Ram', 'Tamil Nadu', 'male'),
+('sham234@gmail.com','admin123', 'Sham', 'Karnataka', 'male'),
+('rakesh@gmail.com','admin123', 'Rakesh', 'Gujarat', 'male');
 
 -- Inserting Medical History Data
 INSERT INTO MedicalHistory(date, conditions, surgeries, medication)
@@ -13,10 +13,10 @@ VALUES
 ('2020-04-23','Body Pain','none','Iodex');
 
 -- Inserting Doctor Data
-INSERT INTO Doctor(email, gender, password, salt, name)
+INSERT INTO Doctor(email, gender, password, name)
 VALUES
-('sandip.doctor@gmail.com', 'male', 'admin123', '', 'Sandip Kaushik'),
-('gagan.doctor@gmail.com', 'male', 'admin123', '', 'Gagan Singh');
+('sandip.doctor@gmail.com', 'male', 'admin123', 'Sandip Kaushik'),
+('gagan.doctor@gmail.com', 'male', 'admin123', 'Gagan Singh');
 
 -- Inserting Appointment Data
 INSERT INTO Appointment(doctorEmail, date, starttime, endtime, status)
@@ -26,7 +26,7 @@ VALUES
 ('gagan.doctor@gmail.com', '2023-03-23', '2023-03-23 14:00:00', '2023-03-23 15:00:00', 'Done');
 
 -- Inserting Patient-Appointment Data
-INSERT INTO PatientsAttendAppointments(patient, appointmentId, concerns, symptoms)
+INSERT INTO PatientsAttendAppointments(patientEmail, appointmentId, concerns, symptoms)
 VALUES
 ('ram123@gmail.com', 1, 'none', 'itchy throat'),
 ('sham234@gmail.com', 2, 'infection', 'fever'),
@@ -45,9 +45,9 @@ VALUES
 -- Associating Patients with their Medical Histories
 INSERT INTO PatientMedicalHistory(patientEmail, historyId)
 VALUES
-('ram123@gmail.com', 4),
-('sham234@gmail.com', 5),
-('rakesh@gmail.com', 6);
+('ram123@gmail.com', 1),
+('sham234@gmail.com', 2),
+('rakesh@gmail.com', 3);
 
 -- Inserting Diagnoses Data
 INSERT INTO Diagnoses(appointmentId, doctorEmail, diagnosis, prescription)
@@ -65,6 +65,6 @@ VALUES
 -- Doctors viewing patients' histories
 INSERT INTO DoctorViewsHistory(historyId, doctorEmail)
 VALUES
-(4, 'sandip.doctor@gmail.com'),
-(5, 'gagan.doctor@gmail.com'),
-(6, 'gagan.doctor@gmail.com');
+(1, 'sandip.doctor@gmail.com'),
+(2, 'gagan.doctor@gmail.com'),
+(3, 'gagan.doctor@gmail.com');

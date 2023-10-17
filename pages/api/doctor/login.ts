@@ -1,5 +1,6 @@
 import prisma from '@/prisma/prisma';
 import { NextApiRequest, NextApiResponse } from 'next';
+var bcrypt = require('bcryptjs');
 
 // create a new doctor login api
 // export async function login(req: NextApiRequest, res: NextApiResponse) {
@@ -44,16 +45,21 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
       }
 
       // Check if password matches
-      if (password === doctor.password) {
-        return res.status(200).json({ doctor });
-      } else {
-        return res.status(400).json({ error: 'Incorrect password' });
+      console.log('Provided password:', password);
+
+      const isPasswordValid = bcrypt.compareSync(password, doctor.password);
+      console.log('Stored hashed password:', doctor.password);
+      if (!isPasswordValid) {
+        if (password !== doctor.password) {
+          return res.status(400).json({ error: 'Incorrect password' });
+        }
       }
 
+      console.log('Comparison result:', isPasswordValid);
       // Validate the password (compare with hashed version)
       // If valid, generate a token or set a session
 
-      //   return res.status(200).json({ message: 'Login successful' });
+      return res.status(200).json({ message: 'Login successful' });
     } catch (error) {
       return res.status(400).json({ error: 'Login failed' });
     }
