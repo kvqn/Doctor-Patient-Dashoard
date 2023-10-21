@@ -13,7 +13,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={globalFont.className}>{children}</body>
+      <body className={globalFont.className}>
+        <div className="border-2">{children}</div>
+      </body>
     </html>
   );
 }
