@@ -9,45 +9,53 @@ datasource db {
 
 model appointment {
   id                         Int                          @id @default(autoincrement())
-  doctorEmail                String
+  doctorId                   Int
   date                       DateTime
   starttime                  DateTime
   endtime                    DateTime
   status                     String
-  doctor                     doctor                       @relation(fields: [doctorEmail], references: [email], map: "Appointment_doctorEmail_fkey")
+  doctor                     doctor                       @relation(fields: [doctorId], references: [id], map: "Appointment_doctorId_fkey")
   diagnoses                  diagnoses[]
   patientsattendappointments patientsattendappointments[]
 
-  @@index([doctorEmail], map: "Appointment_doctorEmail_fkey")
+  @@index([doctorId], map: "Appointment_doctorId_fkey")
 }
 
 model diagnoses {
   id            Int         @id @default(autoincrement())
   appointmentId Int
-  doctorEmail   String
+  doctorId      Int
   diagnosis     String
   prescription  String
   appointment   appointment @relation(fields: [appointmentId], references: [id], map: "Diagnoses_appointmentId_fkey")
-  doctor        doctor      @relation(fields: [doctorEmail], references: [email], map: "Diagnoses_doctorEmail_fkey")
+  doctor        doctor      @relation(fields: [doctorId], references: [id], map: "Diagnoses_doctorId_fkey")
 
   @@index([appointmentId], map: "Diagnoses_appointmentId_fkey")
-  @@index([doctorEmail], map: "Diagnoses_doctorEmail_fkey")
+  @@index([doctorId], map: "Diagnoses_doctorId_fkey")
 }
 
 model docshaveschedules {
-  scheduleId  Int
-  doctorEmail String
-  doctor      doctor   @relation(fields: [doctorEmail], references: [email], map: "DocsHaveSchedules_doctorEmail_fkey")
-  schedule    schedule @relation(fields: [scheduleId], references: [id], map: "DocsHaveSchedules_scheduleId_fkey")
+  scheduleId Int
+  doctorId   Int
+  doctor     doctor   @relation(fields: [doctorId], references: [id], map: "DocsHaveSchedules_doctorId_fkey")
+  schedule   schedule @relation(fields: [scheduleId], references: [id], map: "DocsHaveSchedules_scheduleId_fkey")
 
-  @@id([scheduleId, doctorEmail])
-  @@index([doctorEmail], map: "DocsHaveSchedules_doctorEmail_fkey")
+  @@id([scheduleId, doctorId])
+  @@index([doctorId], map: "DocsHaveSchedules_doctorId_fkey")
+}
+
+model User {
+  email    String   @unique
+  password String
+  id       String   @id
+  doctor   doctor[]
 }
 
 model doctor {
-  email              String               @id
+  id                 Int                  @id @default(autoincrement())
+  userId             String
+  user               User                 @relation(fields: [userId], references: [id], map: "Doctor_userId_fkey")
   gender             String
-  password           String
   name               String
   phone_number       String?
   appointment        appointment[]
@@ -58,12 +66,12 @@ model doctor {
 
 model doctorviewshistory {
   historyId      Int
-  doctorEmail    String
-  doctor         doctor         @relation(fields: [doctorEmail], references: [email], map: "DoctorViewsHistory_doctorEmail_fkey")
+  doctorId       Int
+  doctor         doctor         @relation(fields: [doctorId], references: [id], map: "DoctorViewsHistory_doctorId_fkey")
   medicalhistory medicalhistory @relation(fields: [historyId], references: [id], map: "DoctorViewsHistory_historyId_fkey")
 
-  @@id([historyId, doctorEmail])
-  @@index([doctorEmail], map: "DoctorViewsHistory_doctorEmail_fkey")
+  @@id([historyId, doctorId])
+  @@index([doctorId], map: "DoctorViewsHistory_doctorId_fkey")
 }
 
 model medicalhistory {
@@ -77,8 +85,7 @@ model medicalhistory {
 }
 
 model patient {
-  email                      String                       @id
-  password                   String
+  id                         Int                          @id @default(autoincrement())
   name                       String
   address                    String
   gender                     String
@@ -89,24 +96,24 @@ model patient {
 }
 
 model patientmedicalhistory {
-  patientEmail   String
+  patientId      Int
   historyId      Int
   medicalhistory medicalhistory @relation(fields: [historyId], references: [id], map: "PatientMedicalHistory_historyId_fkey")
-  patient        patient        @relation(fields: [patientEmail], references: [email], map: "PatientMedicalHistory_patientEmail_fkey")
+  patient        patient        @relation(fields: [patientId], references: [id], map: "PatientMedicalHistory_patientId_fkey")
 
-  @@id([patientEmail, historyId])
+  @@id([patientId, historyId])
   @@index([historyId], map: "PatientMedicalHistory_historyId_fkey")
 }
 
 model patientsattendappointments {
-  patientEmail  String
+  patientId     Int
   appointmentId Int
   concerns      String
   symptoms      String
   appointment   appointment @relation(fields: [appointmentId], references: [id], map: "PatientsAttendAppointments_appointmentId_fkey")
-  patient       patient     @relation(fields: [patientEmail], references: [email], map: "PatientsAttendAppointments_patientEmail_fkey")
+  patient       patient     @relation(fields: [patientId], references: [id], map: "PatientsAttendAppointments_patientId_fkey")
 
-  @@id([patientEmail, appointmentId])
+  @@id([patientId, appointmentId])
   @@index([appointmentId], map: "PatientsAttendAppointments_appointmentId_fkey")
 }
 
